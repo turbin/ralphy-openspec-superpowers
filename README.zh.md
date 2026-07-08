@@ -57,6 +57,45 @@ npm install -g @th0rgal/ralph-wiggum
 ralph "Follow AGENTS.md to implement add-api. Output <promise>TASK_COMPLETE</promise> when done." --max-iterations 20
 ```
 
+### Kimi Code
+
+从 `.kimi-plugin/` 安装仓库级插件：
+
+```bash
+kimi plugin install <repo-path>
+```
+
+然后使用已注册的 slash 命令：
+
+| 命令 | 功能 |
+|------|------|
+| `/ralphy-plan` | 从需求创建规范 |
+| `/ralphy-implement` | 迭代循环构建 |
+| `/ralphy-validate` | 验证验收标准 |
+| `/ralphy-archive` | 完成并归档 |
+
+### Trae
+
+Trae 在打开项目时自动发现 `.trae/commands/` 中的项目级命令。
+
+| 命令 | 功能 |
+|------|------|
+| `/ralphy-plan` | 从需求创建规范 |
+| `/ralphy-implement` | 迭代循环构建 |
+| `/ralphy-validate` | 验证验收标准 |
+| `/ralphy-archive` | 完成并归档 |
+
+### Codex
+
+Codex 会自动加载 `.codex/prompts/` 中的提示文件。
+
+| 命令 | 功能 |
+|------|------|
+| `/ralphy-plan` | 从需求创建规范 |
+| `/ralphy-implement` | 迭代循环构建 |
+| `/ralphy-validate` | 验证验收标准 |
+| `/ralphy-archive` | 完成并归档 |
+
 ## 工作流示例
 
 ```bash
@@ -76,7 +115,24 @@ You: /ralphy-archive add-user-auth
 ## 创建的文件
 
 ```
-.cursor/prompts/          # 或 .claude/commands/
+.cursor/prompts/          # 或 .claude/commands/、.trae/commands/、.codex/prompts/
+├── ralphy-plan.md
+├── ralphy-implement.md
+├── ralphy-validate.md
+└── ralphy-archive.md
+
+.kimi-plugin/             # Kimi Code 使用
+├── plugin.json
+├── docs/                 # slash 命令文档
+└── skills/               # session-start skill
+
+.trae/commands/           # Trae 使用
+├── ralphy-plan.md
+├── ralphy-implement.md
+├── ralphy-validate.md
+└── ralphy-archive.md
+
+.codex/prompts/           # Codex 使用
 ├── ralphy-plan.md
 ├── ralphy-implement.md
 ├── ralphy-validate.md
@@ -132,8 +188,8 @@ npx ralphy-spec init
 npm install -g ralphy-spec
 ralphy-spec init
 
-# 指定工具
-ralphy-spec init --tools cursor,claude-code,opencode
+# 指定工具（任选：cursor、claude-code、opencode、kimi、trae、codex）
+ralphy-spec init --tools cursor,claude-code,opencode,kimi,trae,codex
 ```
 
 ## 致谢

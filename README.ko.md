@@ -57,6 +57,45 @@ npm install -g @th0rgal/ralph-wiggum
 ralph "Follow AGENTS.md to implement add-api. Output <promise>TASK_COMPLETE</promise> when done." --max-iterations 20
 ```
 
+### Kimi Code
+
+`.kimi-plugin/`에서 리포지토리 수준 플러그인을 설치하세요:
+
+```bash
+kimi plugin install <repo-path>
+```
+
+그런 다음 등록된 슬래시 명령을 사용하세요:
+
+| 명령 | 기능 |
+|------|------|
+| `/ralphy-plan` | 요구사항에서 스펙 생성 |
+| `/ralphy-implement` | 반복 루프로 빌드 |
+| `/ralphy-validate` | 인수 기준 검증 |
+| `/ralphy-archive` | 완료 및 아카이브 |
+
+### Trae
+
+프로젝트를 열면 Trae가 `.trae/commands/`의 프로젝트 수준 명령을 자동으로 검색합니다.
+
+| 명령 | 기능 |
+|------|------|
+| `/ralphy-plan` | 요구사항에서 스펙 생성 |
+| `/ralphy-implement` | 반복 루프로 빌드 |
+| `/ralphy-validate` | 인수 기준 검증 |
+| `/ralphy-archive` | 완료 및 아카이브 |
+
+### Codex
+
+Codex는 `.codex/prompts/`의 프롬프트 파일을 자동으로 로드합니다.
+
+| 프롬프트 | 기능 |
+|----------|------|
+| `/ralphy-plan` | 요구사항에서 스펙 생성 |
+| `/ralphy-implement` | 반복 루프로 빌드 |
+| `/ralphy-validate` | 인수 기준 검증 |
+| `/ralphy-archive` | 완료 및 아카이브 |
+
 ## 워크플로우 예시
 
 ```bash
@@ -76,7 +115,24 @@ You: /ralphy-archive add-user-auth
 ## 생성되는 파일
 
 ```
-.cursor/prompts/          # 또는 .claude/commands/
+.cursor/prompts/          # 또는 .claude/commands/, .trae/commands/, .codex/prompts/
+├── ralphy-plan.md
+├── ralphy-implement.md
+├── ralphy-validate.md
+└── ralphy-archive.md
+
+.kimi-plugin/             # Kimi Code용
+├── plugin.json
+├── docs/                 # 슬래시 명령 문서
+└── skills/               # 세션 시작 스킬
+
+.trae/commands/           # Trae용
+├── ralphy-plan.md
+├── ralphy-implement.md
+├── ralphy-validate.md
+└── ralphy-archive.md
+
+.codex/prompts/           # Codex용
 ├── ralphy-plan.md
 ├── ralphy-implement.md
 ├── ralphy-validate.md
@@ -133,7 +189,7 @@ npm install -g ralphy-spec
 ralphy-spec init
 
 # 특정 도구 지정
-ralphy-spec init --tools cursor,claude-code,opencode
+ralphy-spec init --tools cursor,claude-code,opencode,kimi,trae,codex
 ```
 
 ## 감사의 말

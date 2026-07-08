@@ -57,6 +57,45 @@ npm install -g @th0rgal/ralph-wiggum
 ralph "Follow AGENTS.md to implement add-api. Output <promise>TASK_COMPLETE</promise> when done." --max-iterations 20
 ```
 
+### Kimi Code
+
+`.kimi-plugin/`からリポジトリレベルのプラグインをインストールします：
+
+```bash
+kimi plugin install <repo-path>
+```
+
+登録されたスラッシュコマンドを使用します：
+
+| コマンド | 機能 |
+|----------|------|
+| `/ralphy-plan` | 要件からスペック作成 |
+| `/ralphy-implement` | 反復ループでビルド |
+| `/ralphy-validate` | 受け入れ基準を検証 |
+| `/ralphy-archive` | 完了してアーカイブ |
+
+### Trae
+
+Traeはプロジェクトを開くと、`.trae/commands/`のプロジェクトレベルコマンドを自動的に検出します。
+
+| コマンド | 機能 |
+|----------|------|
+| `/ralphy-plan` | 要件からスペック作成 |
+| `/ralphy-implement` | 反復ループでビルド |
+| `/ralphy-validate` | 受け入れ基準を検証 |
+| `/ralphy-archive` | 完了してアーカイブ |
+
+### Codex
+
+Codexは`.codex/prompts/`のプロンプトファイルを自動的に読み込みます。
+
+| コマンド | 機能 |
+|----------|------|
+| `/ralphy-plan` | 要件からスペック作成 |
+| `/ralphy-implement` | 反復ループでビルド |
+| `/ralphy-validate` | 受け入れ基準を検証 |
+| `/ralphy-archive` | 完了してアーカイブ |
+
 ## ワークフロー例
 
 ```bash
@@ -76,7 +115,24 @@ You: /ralphy-archive add-user-auth
 ## 作成されるファイル
 
 ```
-.cursor/prompts/          # または .claude/commands/
+.cursor/prompts/          # または .claude/commands/、.trae/commands/、.codex/prompts/
+├── ralphy-plan.md
+├── ralphy-implement.md
+├── ralphy-validate.md
+└── ralphy-archive.md
+
+.kimi-plugin/             # Kimi Code用
+├── plugin.json
+├── docs/                 # スラッシュコマンドのドキュメント
+└── skills/               # セッション開始スキル
+
+.trae/commands/           # Trae用
+├── ralphy-plan.md
+├── ralphy-implement.md
+├── ralphy-validate.md
+└── ralphy-archive.md
+
+.codex/prompts/           # Codex用
 ├── ralphy-plan.md
 ├── ralphy-implement.md
 ├── ralphy-validate.md
@@ -133,7 +189,7 @@ npm install -g ralphy-spec
 ralphy-spec init
 
 # 特定のツールを指定
-ralphy-spec init --tools cursor,claude-code,opencode
+ralphy-spec init --tools cursor,claude-code,opencode,kimi,trae,codex
 ```
 
 ## 謝辞

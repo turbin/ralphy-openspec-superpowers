@@ -72,6 +72,45 @@ npm install -g @th0rgal/ralph-wiggum
 ralph "Follow AGENTS.md to implement add-api. Output <promise>TASK_COMPLETE</promise> when done." --max-iterations 20
 ```
 
+### Kimi Code
+
+Install the repo-level plugin from `.kimi-plugin/`:
+
+```bash
+kimi plugin install <repo-path>
+```
+
+Then use the registered slash commands:
+
+| Command | What it does |
+|---------|--------------|
+| `/ralphy-plan` | Create specs from requirements |
+| `/ralphy-implement` | Build with iterative loop |
+| `/ralphy-validate` | Verify acceptance criteria |
+| `/ralphy-archive` | Complete and archive |
+
+### Trae
+
+Trae discovers the project-level commands in `.trae/commands/` automatically when the project is opened.
+
+| Command | What it does |
+|---------|--------------|
+| `/ralphy-plan` | Create specs from requirements |
+| `/ralphy-implement` | Build with iterative loop |
+| `/ralphy-validate` | Verify acceptance criteria |
+| `/ralphy-archive` | Complete and archive |
+
+### Codex
+
+Codex loads the prompt files in `.codex/prompts/` automatically.
+
+| Prompt | What it does |
+|--------|--------------|
+| `/ralphy-plan` | Create specs from requirements |
+| `/ralphy-implement` | Build with iterative loop |
+| `/ralphy-validate` | Verify acceptance criteria |
+| `/ralphy-archive` | Complete and archive |
+
 ## Example Workflow
 
 ```bash
@@ -91,7 +130,24 @@ You: /ralphy-archive add-user-auth
 ## What Gets Created
 
 ```
-.cursor/prompts/          # or .claude/commands/
+.cursor/prompts/          # or .claude/commands/, .trae/commands/, .codex/prompts/
+├── ralphy-plan.md
+├── ralphy-implement.md
+├── ralphy-validate.md
+└── ralphy-archive.md
+
+.kimi-plugin/             # For Kimi Code
+├── plugin.json
+├── docs/                 # slash command docs
+└── skills/               # session-start skill
+
+.trae/commands/           # For Trae
+├── ralphy-plan.md
+├── ralphy-implement.md
+├── ralphy-validate.md
+└── ralphy-archive.md
+
+.codex/prompts/           # For Codex
 ├── ralphy-plan.md
 ├── ralphy-implement.md
 ├── ralphy-validate.md
@@ -147,8 +203,8 @@ npx ralphy-spec init
 npm install -g ralphy-spec
 ralphy-spec init
 
-# With specific tools
-ralphy-spec init --tools cursor,claude-code,opencode
+# With specific tools (choose any of: cursor, claude-code, opencode, kimi, trae, codex)
+ralphy-spec init --tools cursor,claude-code,opencode,kimi,trae,codex
 ```
 
 ## Credits
