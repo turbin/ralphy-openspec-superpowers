@@ -22,7 +22,7 @@ export async function validateProject(
   if (!(await exists(openspecDir))) {
     issues.push({
       level: "error",
-      message: "Missing openspec directory. Run `ralphy-openspec init`.",
+      message: "Missing openspec directory. Run `ralphy-spec init`.",
       path: "openspec/",
     });
     return issues;
