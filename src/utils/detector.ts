@@ -17,6 +17,9 @@ export async function detectExistingTools(projectDir: string): Promise<ToolId[]>
   if (await exists(path.join(projectDir, ".cursor"))) found.add("cursor");
   if (await exists(path.join(projectDir, ".claude"))) found.add("claude-code");
   if (await exists(path.join(projectDir, "AGENTS.md"))) found.add("opencode");
+  if (await exists(path.join(projectDir, ".kimi-plugin"))) found.add("kimi");
+  if (await exists(path.join(projectDir, ".trae"))) found.add("trae");
+  if (await exists(path.join(projectDir, ".codex"))) found.add("codex");
 
   return [...found];
 }

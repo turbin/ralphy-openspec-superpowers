@@ -1,0 +1,14 @@
+{
+  "name": "ralphy-openspec",
+  "version": "0.3.6",
+  "description": "Ralphy-OpenSpec workflow plugin for Kimi Code. Provides slash commands for plan/implement/validate/archive.",
+  "commands": {
+    "ralphy-plan": "docs/ralphy-plan.md",
+    "ralphy-implement": "docs/ralphy-implement.md",
+    "ralphy-validate": "docs/ralphy-validate.md",
+    "ralphy-archive": "docs/ralphy-archive.md"
+  },
+  "skills": {
+    "ralphy": "skills/ralphy/SKILL.md"
+  }
+}

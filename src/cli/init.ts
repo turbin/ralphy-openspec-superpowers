@@ -13,7 +13,7 @@ function parseToolsArg(arg?: string): ToolId[] | undefined {
     .map((s) => s.trim())
     .filter(Boolean);
 
-  const allowed: ToolId[] = ["cursor", "claude-code", "opencode"];
+  const allowed: ToolId[] = ["cursor", "claude-code", "opencode", "kimi", "trae", "codex"];
   const tools: ToolId[] = [];
   for (const p of parts) {
     if ((allowed as string[]).includes(p)) tools.push(p as ToolId);
@@ -31,6 +31,9 @@ async function promptForTools(defaultTools: ToolId[]): Promise<ToolId[]> {
         { name: "Cursor", value: "cursor" satisfies ToolId },
         { name: "Claude Code", value: "claude-code" satisfies ToolId },
         { name: "OpenCode", value: "opencode" satisfies ToolId },
+        { name: "Kimi Code", value: "kimi" satisfies ToolId },
+        { name: "Trae", value: "trae" satisfies ToolId },
+        { name: "Codex", value: "codex" satisfies ToolId },
       ],
       default: defaultTools,
     },
@@ -45,7 +48,7 @@ export function registerInitCommand(program: Command): void {
     .option("--dir <path>", "Target project directory (default: current directory)")
     .option(
       "--tools <list>",
-      "Comma-separated list: cursor,claude-code,opencode"
+      "Comma-separated list: cursor,claude-code,opencode,kimi,trae,codex"
     )
     .option("--force", "Overwrite existing files", false)
     .action(async (opts: { dir?: string; tools?: string; force: boolean }) => {
@@ -60,7 +63,7 @@ export function registerInitCommand(program: Command): void {
         options.tools ??
         (detected.length
           ? detected
-          : (["cursor", "claude-code", "opencode"] as ToolId[]));
+          : (["cursor", "claude-code", "opencode", "kimi", "trae", "codex"] as ToolId[]));
       const tools = options.tools ?? (await promptForTools(defaultTools));
 
       await ensureOpenSpecScaffold(options.dir);

@@ -114,6 +114,30 @@ export async function installToolTemplates(
     }
   }
 
+  // Kimi Code
+  if (tools.includes("kimi")) {
+    const src = path.join(templatesRoot, "kimi");
+    const dst = path.join(projectDir, ".kimi-plugin");
+    await fse.ensureDir(dst);
+    await fse.copy(src, dst, { overwrite: opts.force, errorOnExist: false });
+  }
+
+  // Trae
+  if (tools.includes("trae")) {
+    const src = path.join(templatesRoot, "trae");
+    const dst = path.join(projectDir, ".trae");
+    await fse.ensureDir(dst);
+    await fse.copy(src, dst, { overwrite: opts.force, errorOnExist: false });
+  }
+
+  // Codex
+  if (tools.includes("codex")) {
+    const src = path.join(templatesRoot, "codex");
+    const dst = path.join(projectDir, ".codex");
+    await fse.ensureDir(dst);
+    await fse.copy(src, dst, { overwrite: opts.force, errorOnExist: false });
+  }
+
   // Ralphy config/state
   const ralphyDir = path.join(projectDir, DEFAULT_ROOT_DIR);
   await ensureDir(ralphyDir);

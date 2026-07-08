@@ -1,4 +1,4 @@
-export type ToolId = "cursor" | "claude-code" | "opencode";
+export type ToolId = "cursor" | "claude-code" | "opencode" | "kimi" | "trae" | "codex";
 
 export type InitOptions = {
   dir: string;
