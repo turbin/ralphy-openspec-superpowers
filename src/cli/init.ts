@@ -67,7 +67,7 @@ export function registerInitCommand(program: Command): void {
       const tools = options.tools ?? (await promptForTools(defaultTools));
 
       await ensureOpenSpecScaffold(options.dir);
-      await installToolTemplates(options.dir, tools, { force: options.force });
+      const hints = await installToolTemplates(options.dir, tools, { force: options.force });
       await ensureRalphyFolders(options.dir);
 
       process.stdout.write(
@@ -76,7 +76,10 @@ export function registerInitCommand(program: Command): void {
         )}\n`
       );
       process.stdout.write(
-        `\nArtifact folder created: ${getRalphyRoot(options.dir)}\n` +
+        `\nNext steps for each tool:\n${hints.map((h) => `- ${h}`).join("\n")}\n\n`
+      );
+      process.stdout.write(
+        `Artifact folder created: ${getRalphyRoot(options.dir)}\n` +
           `\n.gitignore suggestions:\n` +
           `- Commit: ${getRalphyRoot(options.dir)}/STATUS.md, ${getRalphyRoot(options.dir)}/TASKS.md, ${getRalphyRoot(options.dir)}/BUDGET.md\n` +
           `- Ignore: ${getRalphyRoot(options.dir)}/state.db, ${getRalphyRoot(options.dir)}/runs/, ${getRalphyRoot(options.dir)}/logs/, ${getRalphyRoot(options.dir)}/worktrees/\n`

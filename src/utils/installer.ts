@@ -78,8 +78,9 @@ export async function installToolTemplates(
   projectDir: string,
   tools: ToolId[],
   opts: { force: boolean }
-): Promise<void> {
+): Promise<string[]> {
   const templatesRoot = getDistTemplatesDir();
+  const hints: string[] = [];
 
   // Cursor
   if (tools.includes("cursor")) {
@@ -87,6 +88,9 @@ export async function installToolTemplates(
     const dst = path.join(projectDir, ".cursor", "prompts");
     await fse.ensureDir(dst);
     await fse.copy(src, dst, { overwrite: opts.force, errorOnExist: false });
+    hints.push(
+      "Cursor: prompts are in .cursor/prompts/. Open Cursor in this project to use /ralphy-plan, /ralphy-implement, /ralphy-validate, /ralphy-archive."
+    );
   }
 
   // Claude Code
@@ -95,6 +99,9 @@ export async function installToolTemplates(
     const dst = path.join(projectDir, ".claude", "commands");
     await fse.ensureDir(dst);
     await fse.copy(src, dst, { overwrite: opts.force, errorOnExist: false });
+    hints.push(
+      "Claude Code: commands are in .claude/commands/. Launch Claude Code in this project to use /ralphy-plan, /ralphy-implement, /ralphy-validate, /ralphy-archive."
+    );
   }
 
   // OpenCode / AGENTS.md
@@ -112,6 +119,9 @@ export async function installToolTemplates(
         await fse.copyFile(srcAgents, dstAgents);
       }
     }
+    hints.push(
+      "OpenCode: AGENTS.md has been written to the project root. OpenCode will load it when asked to follow the Ralphy workflow."
+    );
   }
 
   // Kimi Code
@@ -120,6 +130,9 @@ export async function installToolTemplates(
     const dst = path.join(projectDir, ".kimi-plugin");
     await fse.ensureDir(dst);
     await fse.copy(src, dst, { overwrite: opts.force, errorOnExist: false });
+    hints.push(
+      "Kimi Code: the plugin is in .kimi-plugin/. To register it, run 'kimi plugin install <repo-path>' from inside Kimi Code (substitute this project's path)."
+    );
   }
 
   // Trae
@@ -128,6 +141,9 @@ export async function installToolTemplates(
     const dst = path.join(projectDir, ".trae");
     await fse.ensureDir(dst);
     await fse.copy(src, dst, { overwrite: opts.force, errorOnExist: false });
+    hints.push(
+      "Trae: commands are in .trae/commands/. Open this project in Trae to use /ralphy-plan, /ralphy-implement, /ralphy-validate, /ralphy-archive."
+    );
   }
 
   // Codex
@@ -136,6 +152,9 @@ export async function installToolTemplates(
     const dst = path.join(projectDir, ".codex");
     await fse.ensureDir(dst);
     await fse.copy(src, dst, { overwrite: opts.force, errorOnExist: false });
+    hints.push(
+      "Codex: prompts are in .codex/prompts/. Launch Codex in this project to use /ralphy-plan, /ralphy-implement, /ralphy-validate, /ralphy-archive."
+    );
   }
 
   // Ralphy config/state
@@ -165,5 +184,7 @@ export async function installToolTemplates(
       2
     ) + "\n"
   );
+
+  return hints;
 }
 
